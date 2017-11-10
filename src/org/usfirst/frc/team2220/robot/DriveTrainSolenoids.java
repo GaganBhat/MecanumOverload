@@ -9,9 +9,11 @@ public class DriveTrainSolenoids extends Command{
 	public static Solenoid rightSol1 = new Solenoid(6);
 	public static Solenoid rightSol2 = new Solenoid(7);
 	
+	static boolean tankDriveEnabled; 
 	
 	public static Command tankDrive() {
 		
+		tankDriveEnabled = true;
 		
 		rightSol1.set(true); // True means Tank Drive
 		rightSol2.set(false); // Opposite of rightSol1
@@ -23,6 +25,8 @@ public class DriveTrainSolenoids extends Command{
 	}
 	
 	public static Command mecanumDrive() {
+		
+		tankDriveEnabled = false;
 		
 		rightSol1.set(false); // False means Mecanum Drive
 		rightSol2.set(true); // Opposite of rightSol1

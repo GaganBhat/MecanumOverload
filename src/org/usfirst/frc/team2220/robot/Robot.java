@@ -51,7 +51,12 @@ public class Robot extends SampleRobot {
 	Joystick leftStick = new Joystick(0); // set to ID 1 in DriverStation
 	Button leftBumper = new JoystickButton(leftStick, 5);
 	Button rightBumper = new JoystickButton(leftStick, 6);
-
+	
+	//MecanumDrive
+	RobotDrive mecanumDrive = new RobotDrive(leftMotor, leftMotor1, rightMotor, rightMotor1);
+	
+	public boolean tankDriveEnabled; //Tank Drive Enabled? 
+	
 	public Robot() {
 		//myRobot.setExpiration(0.1);
 		Compressor aCompressor = new Compressor();
@@ -95,12 +100,21 @@ public class Robot extends SampleRobot {
 			leftOutput = deadzone(leftOutput, 0.2);
 			rightOutput = deadzone(rightOutput, 0.2);
 			
+			if (DriveTrainSolenoids.tankDriveEnabled == true) {
+			
 			//myRobot.tankDrive(leftStick, rightStick);
 			leftMotor.set(leftOutput);
 			rightMotor.set(-rightOutput);
 			leftMotor1.set(leftOutput);
 			rightMotor1.set(-rightOutput);
 			Timer.delay(0.005); // wait for a motor update time
+			
+			} else {
+				
+			mecanumDrive.mecanumDrive_Polar(rightOutput, rightOutput, 0);
+			//mecanumDrive.mecanumDrive_Cartesian(leftOutput, rightOutput, 0, 0);
+				
+			}
 		}
 	}
 }
