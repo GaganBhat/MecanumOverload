@@ -49,11 +49,11 @@ public class Robot extends SampleRobot {
 	
 	// operations
 	Joystick leftStick = new Joystick(0); // set to ID 1 in DriverStation
-	Button leftBumper = new JoystickButton(leftStick, 5);
-	Button rightBumper = new JoystickButton(leftStick, 6);
+	//Button leftBumper = new JoystickButton(leftStick, 5);
+	//Button rightBumper = new JoystickButton(leftStick, 6);
 	
 	//MecanumDrive
-	RobotDrive mecanumDrive = new RobotDrive(leftMotor, leftMotor1, rightMotor, rightMotor1);
+	//RobotDrive mecanumDrive = new RobotDrive(leftMotor, leftMotor1, rightMotor, rightMotor1);
 	
 	public boolean tankDriveEnabled; //Tank Drive Enabled? 
 	
@@ -89,9 +89,9 @@ public class Robot extends SampleRobot {
 		leftSol1.set(true); //True means Tank Drive
 		leftSol2.set(false); //Opposite of new leftSol1*/
 		
-		leftBumper.toggleWhenPressed(DriveTrainSolenoids.tankDrive()); //Enables Tank Drive solenoid
+	//	leftBumper.toggleWhenPressed(DriveTrainSolenoids.tankDrive()); //Enables Tank Drive solenoid
 		
-		rightBumper.toggleWhenPressed(DriveTrainSolenoids.mecanumDrive()); //Enables Mecanum Drive solenoid
+		//rightBumper.toggleWhenPressed(DriveTrainSolenoids.mecanumDrive()); //Enables Mecanum Drive solenoid
 		
 		while (isOperatorControl() && isEnabled()) {
 			double leftOutput = leftStick.getRawAxis(1);
@@ -100,7 +100,12 @@ public class Robot extends SampleRobot {
 			leftOutput = deadzone(leftOutput, 0.2);
 			rightOutput = deadzone(rightOutput, 0.2);
 			
-			if (DriveTrainSolenoids.tankDriveEnabled == true) {
+			leftMotor.set(leftOutput);
+			rightMotor.set(-rightOutput);
+			leftMotor1.set(leftOutput);
+			rightMotor1.set(-rightOutput);
+			
+			/*if (DriveTrainSolenoids.tankDriveEnabled == true) {
 			
 			//myRobot.tankDrive(leftStick, rightStick);
 			leftMotor.set(leftOutput);
@@ -114,7 +119,7 @@ public class Robot extends SampleRobot {
 			mecanumDrive.mecanumDrive_Polar(rightOutput, rightOutput, 0);
 			//mecanumDrive.mecanumDrive_Cartesian(leftOutput, rightOutput, 0, 0);
 				
-			}
+			}*/
 		}
 	}
 }
